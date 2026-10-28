@@ -2,16 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import NoticeBanner from './components/NoticeBanner';
 import HeroSection from './components/HeroSection';
-import WorkflowSection from './components/WorkflowSection';
 import PredictionForm from './components/PredictionForm';
 import PredictionResult from './components/PredictionResult';
-import AnalyticsDashboard from './components/AnalyticsDashboard';
-import AboutProject from './components/AboutProject';
 import Footer from './components/Footer';
 import { fetchHealth, fetchLocations } from './services/api';
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('home');
   const [health, setHealth] = useState(null);
   const [locationsData, setLocationsData] = useState(null);
   const [predictionResult, setPredictionResult] = useState(null);
@@ -25,57 +21,26 @@ export default function App() {
     init();
   }, []);
 
-  const handlePredictClick = () => {
-    setActiveSection('predict');
-    const el = document.getElementById('predict');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleExploreMetricsClick = () => {
-    setActiveSection('analytics');
-    const el = document.getElementById('analytics');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handlePredictionSuccess = (result) => {
     setPredictionResult(result);
-    // Smooth scroll to results
-    setTimeout(() => {
-      window.scrollTo({ top: 400, behavior: 'smooth' });
-    }, 100);
+    window.scrollTo({ top: 120, behavior: 'smooth' });
   };
 
   const handlePredictAnother = () => {
     setPredictionResult(null);
-    const el = document.getElementById('predict');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.scrollTo({ top: 120, behavior: 'smooth' });
   };
 
   return (
     <div className="app-layout">
-      <Navbar
-        health={health}
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-      />
+      <Navbar health={health} />
 
-      <main className="container" style={{ marginTop: '24px' }}>
+      <main className="container" style={{ marginTop: '16px' }}>
         <NoticeBanner isSynthetic={health?.is_synthetic ?? true} />
 
-        <HeroSection
-          onPredictClick={handlePredictClick}
-          onExploreMetricsClick={handleExploreMetricsClick}
-        />
+        <HeroSection />
 
-        <WorkflowSection />
-
-        <div id="predict-anchor">
+        <div id="prediction-container" style={{ margin: '20px 0 40px' }}>
           {predictionResult ? (
             <PredictionResult
               result={predictionResult}
@@ -88,10 +53,6 @@ export default function App() {
             />
           )}
         </div>
-
-        <AnalyticsDashboard />
-
-        <AboutProject />
       </main>
 
       <Footer />
