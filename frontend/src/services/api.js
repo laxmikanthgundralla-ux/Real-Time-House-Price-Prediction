@@ -3,7 +3,7 @@
  * Uses environment variable VITE_API_URL with localhost fallback.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://house-price-api-9mer.onrender.com';
 
 export async function fetchHealth() {
   try {

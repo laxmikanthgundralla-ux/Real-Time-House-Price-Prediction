@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import NoticeBanner from './components/NoticeBanner';
-import HeroSection from './components/HeroSection';
 import PredictionForm from './components/PredictionForm';
 import PredictionResult from './components/PredictionResult';
-import Footer from './components/Footer';
-import { fetchHealth, fetchLocations } from './services/api';
+import { fetchLocations } from './services/api';
 
 export default function App() {
-  const [health, setHealth] = useState(null);
   const [locationsData, setLocationsData] = useState(null);
   const [predictionResult, setPredictionResult] = useState(null);
 
   useEffect(() => {
     async function init() {
-      const [h, locs] = await Promise.all([fetchHealth(), fetchLocations()]);
-      setHealth(h);
+      const locs = await fetchLocations();
       setLocationsData(locs);
     }
     init();
@@ -23,24 +17,25 @@ export default function App() {
 
   const handlePredictionSuccess = (result) => {
     setPredictionResult(result);
-    window.scrollTo({ top: 120, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handlePredictAnother = () => {
     setPredictionResult(null);
-    window.scrollTo({ top: 120, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="app-layout">
-      <Navbar health={health} />
+    <div className="app-wrapper">
+      <main className="main-content">
+        <header className="page-header">
+          <h1 className="page-title">House Price Prediction</h1>
+          <p className="page-subtitle">
+            Enter your property details to estimate its selling price.
+          </p>
+        </header>
 
-      <main className="container" style={{ marginTop: '16px' }}>
-        <NoticeBanner isSynthetic={health?.is_synthetic ?? true} />
-
-        <HeroSection />
-
-        <div id="prediction-container" style={{ margin: '20px 0 40px' }}>
+        <div className="content-container">
           {predictionResult ? (
             <PredictionResult
               result={predictionResult}
@@ -55,7 +50,9 @@ export default function App() {
         </div>
       </main>
 
-      <Footer />
+      <footer className="simple-footer">
+        <p>© House Price Prediction. All rights reserved.</p>
+      </footer>
     </div>
   );
 }

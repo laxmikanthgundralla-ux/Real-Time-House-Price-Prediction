@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { MapPin, Maximize2, Bed, Bath, Clock, Layers, Car, Home, Loader2, RotateCcw, Sparkles } from 'lucide-react';
+import {
+  MapPin,
+  Maximize2,
+  Bed,
+  Bath,
+  Clock,
+  Layers,
+  Car,
+  Home,
+  Loader2,
+  RotateCcw,
+  Sparkles
+} from 'lucide-react';
 import { submitPrediction } from '../services/api';
 
 const DEFAULT_FORM_DATA = {
@@ -67,7 +79,6 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
       ...prev,
       [name]: parsedValue
     }));
-    // Clear field-specific error on change
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: null }));
     }
@@ -110,26 +121,9 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
   };
 
   return (
-    <div id="predict" className="card" style={{ padding: '36px', maxWidth: '880px', margin: '0 auto 60px' }}>
-      <div style={{ marginBottom: '28px', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '1.9rem', marginBottom: '8px' }}>Calculate House Valuation</h2>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-          Provide the property attributes below to receive an instant machine-learning valuation and uncertainty band.
-        </p>
-      </div>
-
+    <div className="card form-card">
       {apiError && (
-        <div
-          style={{
-            background: '#fef2f2',
-            border: '1px solid #fecaca',
-            color: '#b91c1c',
-            padding: '14px 18px',
-            borderRadius: 'var(--radius-md)',
-            marginBottom: '24px',
-            fontSize: '0.9rem'
-          }}
-        >
+        <div className="alert-error">
           <strong>Error:</strong> {apiError}
         </div>
       )}
@@ -138,11 +132,12 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
         <div className="form-grid">
           {/* Location */}
           <div className="form-group">
-            <label className="form-label">
+            <label className="form-label" htmlFor="location">
               <MapPin size={16} color="var(--teal-primary)" />
               <span>Location / Metro City</span>
             </label>
             <select
+              id="location"
               name="location"
               value={formData.location}
               onChange={handleChange}
@@ -159,11 +154,12 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
 
           {/* Property Type */}
           <div className="form-group">
-            <label className="form-label">
+            <label className="form-label" htmlFor="property_type">
               <Home size={16} color="var(--teal-primary)" />
               <span>Property Type</span>
             </label>
             <select
+              id="property_type"
               name="property_type"
               value={formData.property_type}
               onChange={handleChange}
@@ -178,13 +174,14 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
             {errors.property_type && <span className="error-msg">{errors.property_type}</span>}
           </div>
 
-          {/* Area in SqFt */}
+          {/* Super Built-up Area */}
           <div className="form-group">
-            <label className="form-label">
+            <label className="form-label" htmlFor="area_sqft">
               <Maximize2 size={16} color="var(--teal-primary)" />
               <span>Super Built-up Area (Sq Ft)</span>
             </label>
             <input
+              id="area_sqft"
               type="number"
               name="area_sqft"
               placeholder="e.g. 1550"
@@ -203,11 +200,12 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
 
           {/* Bedrooms */}
           <div className="form-group">
-            <label className="form-label">
+            <label className="form-label" htmlFor="bedrooms">
               <Bed size={16} color="var(--teal-primary)" />
               <span>Bedrooms (BHK)</span>
             </label>
             <select
+              id="bedrooms"
               name="bedrooms"
               value={formData.bedrooms}
               onChange={handleChange}
@@ -224,11 +222,12 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
 
           {/* Bathrooms */}
           <div className="form-group">
-            <label className="form-label">
+            <label className="form-label" htmlFor="bathrooms">
               <Bath size={16} color="var(--teal-primary)" />
               <span>Bathrooms</span>
             </label>
             <select
+              id="bathrooms"
               name="bathrooms"
               value={formData.bathrooms}
               onChange={handleChange}
@@ -245,14 +244,15 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
 
           {/* Property Age */}
           <div className="form-group">
-            <label className="form-label">
+            <label className="form-label" htmlFor="property_age">
               <Clock size={16} color="var(--teal-primary)" />
               <span>Property Age (Years)</span>
             </label>
             <input
+              id="property_age"
               type="number"
               name="property_age"
-              placeholder="e.g. 3 (0 for new construction)"
+              placeholder="e.g. 4 (0 for new construction)"
               value={formData.property_age}
               onChange={handleChange}
               className={`form-input ${errors.property_age ? 'error' : ''}`}
@@ -268,11 +268,12 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
 
           {/* Floors */}
           <div className="form-group">
-            <label className="form-label">
+            <label className="form-label" htmlFor="floors">
               <Layers size={16} color="var(--teal-primary)" />
               <span>Floors / Floor Level</span>
             </label>
             <input
+              id="floors"
               type="number"
               name="floors"
               placeholder="e.g. 2"
@@ -285,13 +286,14 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
             {errors.floors && <span className="error-msg">{errors.floors}</span>}
           </div>
 
-          {/* Parking */}
+          {/* Dedicated Parking */}
           <div className="form-group">
-            <label className="form-label">
+            <label className="form-label" htmlFor="parking">
               <Car size={16} color="var(--teal-primary)" />
               <span>Dedicated Parking Space</span>
             </label>
             <select
+              id="parking"
               name="parking"
               value={formData.parking}
               onChange={handleChange}
@@ -303,16 +305,7 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
           </div>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            gap: '12px',
-            marginTop: '32px',
-            borderTop: '1px solid var(--border-color)',
-            paddingTop: '24px'
-          }}
-        >
+        <div className="form-actions">
           <button
             type="button"
             className="btn btn-secondary"
@@ -331,12 +324,12 @@ export default function PredictionForm({ locationsData, onPredictionSuccess }) {
             {isLoading ? (
               <>
                 <Loader2 size={18} className="animate-spin" />
-                <span>Running ML Model...</span>
+                <span>Estimating Price...</span>
               </>
             ) : (
               <>
                 <Sparkles size={18} />
-                <span>Calculate Valuation</span>
+                <span>Predict House Price</span>
               </>
             )}
           </button>
