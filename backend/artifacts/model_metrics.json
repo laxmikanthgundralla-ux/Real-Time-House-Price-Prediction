@@ -1,0 +1,93 @@
+{
+  "selected_model": "Published HistGradientBoostingRegressor",
+  "selection_criterion": "Published model card: tuned gradient boosting; held-out test evaluation reported by the model authors",
+  "dataset_type": "real_market_listings",
+  "is_synthetic": false,
+  "train_samples": 49968,
+  "test_samples": 12492,
+  "random_seed": 42,
+  "features": [
+    "location",
+    "bhk",
+    "property_type",
+    "carpet_area",
+    "super_area",
+    "efficiency",
+    "bathroom",
+    "balcony",
+    "balcony_was_missing",
+    "floor_num",
+    "total_floors",
+    "floor_ratio",
+    "facing",
+    "view_garden",
+    "view_pool",
+    "view_main_road",
+    "transaction",
+    "furnishing",
+    "ownership",
+    "parking_spaces"
+  ],
+  "categorical_features": [
+    "location",
+    "property_type",
+    "facing",
+    "transaction",
+    "furnishing",
+    "ownership"
+  ],
+  "numerical_features": [
+    "bhk",
+    "carpet_area",
+    "super_area",
+    "efficiency",
+    "bathroom",
+    "balcony",
+    "balcony_was_missing",
+    "floor_num",
+    "total_floors",
+    "floor_ratio",
+    "view_garden",
+    "view_pool",
+    "view_main_road",
+    "parking_spaces"
+  ],
+  "supported_locations": [
+    "Mumbai",
+    "Bengaluru",
+    "Hyderabad",
+    "Delhi NCR",
+    "Chennai",
+    "Pune",
+    "Kolkata",
+    "Ahmedabad"
+  ],
+  "supported_property_types": [
+    "Apartment"
+  ],
+  "models_comparison": {
+    "Published HistGradientBoostingRegressor": {
+      "model_name": "Published HistGradientBoostingRegressor",
+      "test_mae": 1940000.0,
+      "test_rmse": 3480000.0,
+      "test_r2": 0.854,
+      "train_r2": 0.894,
+      "test_mae_inr": "\u20b919,40,000",
+      "test_rmse_inr": "\u20b934,80,000"
+    }
+  },
+  "best_model_metrics": {
+    "model_name": "Published HistGradientBoostingRegressor",
+    "test_mae": 1940000.0,
+    "test_rmse": 3480000.0,
+    "test_r2": 0.854,
+    "train_r2": 0.894,
+    "test_mae_inr": "\u20b919,40,000",
+    "test_rmse_inr": "\u20b934,80,000"
+  },
+  "source": "House Price (India), Juhi Bhojani dataset, cleaned and modeled by IAAC MaAI course team",
+  "source_url": "https://huggingface.co/iaac-maai/day2-example-house-price",
+  "source_license": "Model MIT; underlying training data CDLA-Sharing-1.0",
+  "data_description": "49,968 cleaned asking-price listings from 81 Indian cities; listings dated through August 2023; flats only.",
+  "disclaimer": "Reported by the published model authors, not independently re-evaluated in this deployment. Estimates are asking-price estimates, not verified transaction prices or professional valuations. Dataset is dated through 2023, city sampling is balanced rather than market-weighted, and locality/building age/construction quality are unavailable. Area is assumed to be gross area; carpet area is estimated at 80% of gross area. Property age is not a model feature. Floor input is interpreted as floor number; total building floors and unreported amenities are imputed by the model."
+}
